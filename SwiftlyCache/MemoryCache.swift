@@ -79,23 +79,6 @@ public class MemoryCache<Value:Codable>{
             removeAll()
         }
     }
-//
-//    /**
-//     获取可用的内存空间
-//     */
-//    func availableMemory()->vm_size_t{
-//        let host_port:host_t = mach_host_self()
-//        var vm_stat:vm_statistics_data_t = vm_statistics_data_t();
-//        var pageSize:vm_size_t = vm_size_t()
-//        var host_size:mach_msg_type_number_t = mach_msg_type_number_t(MemoryLayout<vm_statistics_data_t>.stride / MemoryLayout<integer_t>.stride)
-//        host_page_size(host_port, &pageSize)
-//        withUnsafeMutablePointer(to: &vm_stat) {
-//            $0.withMemoryRebound(to: integer_t.self, capacity: Int(host_size)){
-//                host_statistics(host_port, HOST_VM_INFO, $0, &host_size)
-//            }
-//        }
-//        return UInt(vm_stat.free_count) * pageSize
-//    }
     
     /**
      超过限定张数，需要丢弃一部分内容

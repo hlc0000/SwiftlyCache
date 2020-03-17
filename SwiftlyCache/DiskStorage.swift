@@ -43,7 +43,6 @@ class DiskStorage<Value:Codable>{
        var db:OpaquePointer?
        let dataMaxSize = 1024 * 20
        var dbStmtCache:Dictionary = [String:OpaquePointer]()
-//       var cacheCount = 0
        let fileManager:FileManager = FileManager.default
        init(path:String) {
         filePath = path
@@ -255,27 +254,7 @@ class DiskStorage<Value:Codable>{
         return true
     }
     
-//    func dbBeginTransaction(){
-//        if cacheCount == 0{ sqlite3_exec(db, "BEGIN TRANSACTION", nil, nil, nil) }
-//    }
-//
-//    func dbCommitTransaction(count:Int){
-//        if cacheCount == count{
-//            cacheCount = 0;
-//            sqlite3_exec(db, "COMMIT TRANSACTION", nil, nil, nil)
-//
-//        }
-//    }
-    
     func dbsave(forKey key:String,value:Data,filename:String?)->Bool{
-//        let data = value as NSData
-//        if count != 0{
-//            dbBeginTransaction()
-//            cacheCount+=1
-//            let sql = "insert or replace into detailed(key,size,last_access_time) values(\(key),\(value.count),\(Date().timeStamp));"
-//            excuSql(sql: sql)
-//            dbCommitTransaction(count: count)
-//        }else{
             let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
             let sql = "insert or replace into detailed" + "(key,filename,inline_data,size,last_access_time)" + "values(?1,?2,?3,?4,?5);"
             guard let stmt = dbPrepareStmt(sql: sql) else{ return false }
@@ -293,7 +272,6 @@ class DiskStorage<Value:Codable>{
                 print("sqlite insert error \(String(describing: String(validatingUTF8: sqlite3_errmsg(db))))")
                 return false
             }
-//        }
         return true
     }
     
@@ -365,7 +343,6 @@ class DiskStorage<Value:Codable>{
         let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
         sqlite3_bind_text(stmt, 1, key.cString(using: .utf8), -1, SQLITE_TRANSIENT)
         guard sqlite3_step(stmt) == SQLITE_ROW else {
-//            sqlite3_finalize(stmt)
             print("sqlite query error \(String(describing: String(validatingUTF8: sqlite3_errmsg(db))))")
             return nil
         }

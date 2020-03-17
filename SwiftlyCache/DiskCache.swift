@@ -184,17 +184,6 @@ public class DiskCache<Value:Codable>{
         semaphoreSignal.signal()
         return fin
     }
-    
-//    /**
-//     获取可用的磁盘空间
-//     */
-//    func availableDiskSpace()->UInt{
-//        let attrs = try?FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory())
-//        if let space:UInt = attrs?[FileAttributeKey.systemFreeSize] as? UInt{
-//            return space
-//        }
-//        return 1
-//    }
 }
 
 extension DiskCache:Sequence{
