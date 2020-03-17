@@ -10,6 +10,14 @@ import Foundation
 import SQLite3
 import CommonCrypto
 
+class DiskStorageItem{
+    var key:String?
+    var data:Data?
+    var filename:String?
+    var size:Int32 = 0
+    var accessTime:Int32 = 0
+}
+
 fileprivate extension Date{
     var timeStamp:Int{
        return Int(timeIntervalSince1970)

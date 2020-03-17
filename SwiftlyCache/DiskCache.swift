@@ -49,14 +49,6 @@ public class ConvertibleFactory<Value:Codable>{
     }
 }
 
-class DiskStorageItem{
-    var key:String?
-    var data:Data?
-    var filename:String?
-    var size:Int32 = 0
-    var accessTime:Int32 = 0
-}
-
 private let cacheIdentifier: String = "com.swiftcache.disk"
 public class DiskCache<Value:Codable>{
     /**
