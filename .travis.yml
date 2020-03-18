@@ -1,4 +1,4 @@
-language: objective-c
+language: swift
 osx_image: xcode11.3
 xcode_project: framework/SwiftlyCache.xcodeproj
 xcode_scheme: SwiftlyCache
