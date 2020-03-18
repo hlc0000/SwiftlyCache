@@ -1076,7 +1076,7 @@
 <table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip>
       <tr>
         <td id="L1" class="blob-num js-line-number" data-line-number="1"></td>
-        <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-ent">language</span>: <span class="pl-s">objective-c</span></td>
+        <td id="LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-ent">language</span>: <span class="pl-s">swift</span></td>
       </tr>
       <tr>
         <td id="L2" class="blob-num js-line-number" data-line-number="2"></td>
