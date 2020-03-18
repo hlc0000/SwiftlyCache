@@ -1,6 +1,6 @@
 language: swift
 osx_image: xcode11.3
-xcode_project: framework/SwiftlyCache.xcodeproj
+xcode_project: frameworks/SwiftlyCache.xcodeproj
 xcode_scheme: SwiftlyCache
 
 before_install:
