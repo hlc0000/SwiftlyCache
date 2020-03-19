@@ -1,11 +1,6 @@
-osx_image: xcode10.2
-language: objective-c
-xcode_sdk: iphonesimulator13.2
+osx_image:xcode10.2
+language:objective-c
+xcode_sdk:iphonesimulator13.2
 
-xcode_project: frameworks/SwiftlyCache.xcodeproj
-xcode_scheme: SwiftlyCache
-
-# whitelist
-branches:
-only:
-- master
+xcode_project:frameworks/SwiftlyCache.xcodeproj
+xcode_scheme:SwiftlyCache
