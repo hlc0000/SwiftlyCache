@@ -10,4 +10,5 @@ before_install:
 - xcpretty --version
 
 script:
-- set -o pipefail && xcodebuild -project frameworks/SwiftlyCache.xcodeproj -scheme SwiftlyCache build test | xcpretty
+- set -o pipefail
+- xcodebuild -project frameworks/SwiftlyCache.xcodeproj -scheme SwiftlyCache build test | xcpretty
