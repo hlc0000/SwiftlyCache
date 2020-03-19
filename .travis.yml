@@ -1,14 +1,10 @@
-language: objective-c
 osx_image: xcode11.3
-xcode_project: frameworks/SwiftlyCache.xcodeproj
-xcode_scheme: SwiftlyCache
-
-before_install:
-- env
-- xcodebuild -version
-- xcodebuild -showsdks
-- xcpretty --version
-
+language: objective-c
 script:
-- set -o pipefail
-- xcodebuild -project "$TRAVIS_XCODE_PROJECT" -scheme "$TRAVIS_XCODE_SCHEME" build test | xcpretty
+  - |
+    xcodebuild test \
+    -project frameworks/SwiftlyCache.xcodeproj \
+    -scheme SwiftlyCache \
+    -sdk iphonesimulator \
+    -destination 'platform=iOS Simulator,name=iPhone X,OS=latest' \
+    | xcpretty
