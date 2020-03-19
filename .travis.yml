@@ -11,4 +11,4 @@ before_install:
 
 script:
 - set -o pipefail
-- xcodebuild -project frameworks/SwiftlyCache.xcodeproj -scheme SwiftlyCache build test | xcpretty
+- xcodebuild -project "$TRAVIS_XCODE_PROJECT" -scheme "$TRAVIS_XCODE_SCHEME" build test | xcpretty
