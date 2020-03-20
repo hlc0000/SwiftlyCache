@@ -261,7 +261,7 @@ class DiskStorage<Value:Codable>{
             sqlite3_bind_text(stmt, 1, key.cString(using: .utf8), -1, SQLITE_TRANSIENT)
             if let filename = filename{
                 sqlite3_bind_text(stmt, 2, filename, -1, SQLITE_TRANSIENT)
-                sqlite3_bind_blob(stmt, 3, nil, -1, SQLITE_TRANSIENT)
+                sqlite3_bind_blob(stmt, 3, nil, 0, SQLITE_TRANSIENT)
             }else{
                 sqlite3_bind_text(stmt, 2, nil, -1, SQLITE_TRANSIENT)
                 sqlite3_bind_blob(stmt,3,[UInt8](value),Int32(value.count),SQLITE_TRANSIENT)

@@ -168,8 +168,7 @@ extension MemoryCache:CacheAware{
     */
     public func set(forKey key:String,value:Value?,cost:vm_size_t = 0,completionHandler:@escaping((_ key:String,_ finished:Bool) -> Void)){
         queue.async {
-            guard let object = value else { completionHandler(key,false);return }
-            let fin = self.set(forKey: key, value: object,cost: cost)
+            let fin = self.set(forKey: key, value: value,cost: cost)
             completionHandler(key,fin)
         }
     }

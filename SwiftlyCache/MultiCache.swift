@@ -103,9 +103,8 @@ extension MultiCache:CacheAware{
     
     @discardableResult
     public func set(forKey key: String, value: Value?, cost: vm_size_t = 0)->Bool {
-        guard let object = value else { return false }
-        let memoryCacheFin = memoryCache.set(forKey: key, value: object,cost: cost)
-        let diskCacheFin = diskCache.set(forKey: key, value: object)
+        let memoryCacheFin = memoryCache.set(forKey: key, value: value,cost: cost)
+        let diskCacheFin = diskCache.set(forKey: key, value: value)
         if memoryCacheFin || diskCacheFin{ return true }
         return false
     }
@@ -118,10 +117,9 @@ extension MultiCache:CacheAware{
      @param completionHandler: 缓存数据写入完成回调
      */
     public func set(forKey key:String,value:Value?,cost:vm_size_t = 0,completionHandler:@escaping((_ key:String,_ finished:Bool) -> Void)){
-        guard let object = value else { return }
         queue.async {
-            let memoryCacheFin = self.memoryCache.set(forKey: key, value: object,cost: cost)
-            let diskCacheFin = self.diskCache.set(forKey: key, value: object)
+            let memoryCacheFin = self.memoryCache.set(forKey: key, value: value,cost: cost)
+            let diskCacheFin = self.diskCache.set(forKey: key, value: value)
             if memoryCacheFin || diskCacheFin{ completionHandler(key,true) }
             else{ completionHandler(key,false) }
         }
