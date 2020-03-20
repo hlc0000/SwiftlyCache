@@ -264,7 +264,7 @@ class DiskStorage<Value:Codable>{
                 sqlite3_bind_blob(stmt, 3, nil, -1, SQLITE_TRANSIENT)
             }else{
                 sqlite3_bind_text(stmt, 2, nil, -1, SQLITE_TRANSIENT)
-                sqlite3_bind_blob(stmt,3,[UInt8](value),-1,SQLITE_TRANSIENT)
+                sqlite3_bind_blob(stmt,3,[UInt8](value),Int32(value.count),SQLITE_TRANSIENT)
             }
             sqlite3_bind_int(stmt, 4, Int32(value.count))
             sqlite3_bind_int(stmt, 5,Int32(Date().timeStamp))
