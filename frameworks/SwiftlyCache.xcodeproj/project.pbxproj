@@ -13,6 +13,7 @@
 		6E0E74AF24226E9500547166 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0E74A924226E9500547166 /* MemoryCache.swift */; };
 		6E0E74B024226E9500547166 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0E74AA24226E9500547166 /* DiskCache.swift */; };
 		6E0E74B124226E9500547166 /* MultiCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0E74AB24226E9500547166 /* MultiCache.swift */; };
+		6E202850242530FD0042081D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E20284F242530FD0042081D /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6E0E74A924226E9500547166 /* MemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
 		6E0E74AA24226E9500547166 /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
 		6E0E74AB24226E9500547166 /* MultiCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCache.swift; sourceTree = "<group>"; };
+		6E20284F242530FD0042081D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E202850242530FD0042081D /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +46,7 @@
 				6E0E74A524226E9500547166 /* SwiftlyCache */,
 				6E0E74A324226E3800547166 /* Info.plist */,
 				6E0E749924226DE400547166 /* Products */,
+				6E20284E242530FD0042081D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +70,14 @@
 			);
 			name = SwiftlyCache;
 			path = ../SwiftlyCache;
+			sourceTree = "<group>";
+		};
+		6E20284E242530FD0042081D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6E20284F242530FD0042081D /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
