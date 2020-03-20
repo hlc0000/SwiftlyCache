@@ -343,7 +343,6 @@ class DiskStorage<Value:Codable>{
         let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
         sqlite3_bind_text(stmt, 1, key.cString(using: .utf8), -1, SQLITE_TRANSIENT)
         guard sqlite3_step(stmt) == SQLITE_ROW else {
-            print("sqlite query error \(String(describing: String(validatingUTF8: sqlite3_errmsg(db))))")
             return nil
         }
         let item = dbGetItemFromStmt(stmt: stmt)
@@ -487,7 +486,6 @@ class DiskStorage<Value:Codable>{
         guard let stmt = dbPrepareStmt(sql: sql) else { return false }
         sqlite3_bind_text(stmt, 1, key.cString(using: .utf8), -1, nil)
         guard sqlite3_step(stmt) == SQLITE_ROW else{
-            print("sqlite query  error \(String(describing: String(validatingUTF8: sqlite3_errmsg(db))))")
             return false
         }
         return Int(sqlite3_column_int(stmt, 0)) > 0
@@ -500,7 +498,6 @@ class DiskStorage<Value:Codable>{
         let sql = "select sum(size) from detailed;"
         guard let stmt = dbPrepareStmt(sql: sql) else { return -1 }
         guard sqlite3_step(stmt) == SQLITE_ROW else{
-            print("sqlite query totalSize error \(String(describing: String(validatingUTF8: sqlite3_errmsg(db))))")
             return -1
         }
         return Int32(sqlite3_column_int(stmt, 0))
@@ -513,7 +510,6 @@ class DiskStorage<Value:Codable>{
         let sql = "select count(*) from detailed;"
         guard let stmt = dbPrepareStmt(sql: sql) else { return -1 }
         guard sqlite3_step(stmt) == SQLITE_ROW else{
-            print("sqlite query totalCount error \(String(describing: String(validatingUTF8: sqlite3_errmsg(db))))")
             return -1
         }
         return Int(sqlite3_column_int(stmt, 0))
