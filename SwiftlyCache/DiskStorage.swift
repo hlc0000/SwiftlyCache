@@ -186,7 +186,7 @@ class DiskStorage<Value:Codable>{
      打开数据库
      */
     func dbOpen() ->Bool{
-        guard sqlite3_open(dbPath + ("/\(dbFileName)", &db) == SQLITE_OK else{ return false }
+        guard sqlite3_open(dbPath + ("/\(dbFileName)"), &db) == SQLITE_OK else{ return false }
         return true
     }
     

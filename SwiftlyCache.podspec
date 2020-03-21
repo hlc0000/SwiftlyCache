@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name            = "SwiftlyCache"
-s.version         = "1.0.8"
+s.version         = "1.0.9"
 s.summary         = "SwiftlyCache is a thread safe IOS general cache Library"
 s.description     = "SwiftlyCache is a thread safe IOS general cache Library"
 s.homepage        = "https://github.com/hlc0000/SwiftlyCache"
