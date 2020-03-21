@@ -5,4 +5,6 @@ script:
     xcodebuild test \		
     -project frameworks/SwiftlyCache.xcodeproj \		
     -scheme SwiftlyCache \		
-    -sdk iphonesimulator \			
+    -sdk iphonesimulator \		
+    -destination 'platform=iOS Simulator,name=iPhone X,OS=latest' \
+    | xcpretty		
