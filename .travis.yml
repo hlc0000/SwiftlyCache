@@ -6,5 +6,5 @@ script:
     -project frameworks/SwiftlyCache.xcodeproj \		
     -scheme SwiftlyCache \		
     -sdk iphonesimulator \		
-    -destination 'platform=iOS Simulator	name=iPhone 8	OS=latest' \
+    -destination 'platform=iOS Simulator	name=iPhone X	OS=latest' \
     | xcpretty		
