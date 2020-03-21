@@ -46,9 +46,8 @@ class DiskStorage<Value:Codable>{
        let fileManager:FileManager = FileManager.default
        init(path:String) {
         filePath = path
-        filePath = filePath + ("/\(foldername)")
         dbPath = filePath
-        dbPath = dbPath + ("/\(dbFileName)")
+        filePath = filePath + ("/\(foldername)")
     }
     
       convenience init(currentPath:String){
@@ -149,6 +148,7 @@ class DiskStorage<Value:Codable>{
      移除全部文件数据
      */
     func removeAll(){
+        if !removeAllItem(){ return }
         if dbStmtCache.count > 0{ dbStmtCache.removeAll(keepingCapacity: true) }
         if !dbClose() { return }
         if ((try? fileManager.removeItem(atPath: self.filePath)) == nil) { return }
@@ -186,7 +186,7 @@ class DiskStorage<Value:Codable>{
      打开数据库
      */
     func dbOpen() ->Bool{
-        guard sqlite3_open(dbPath, &db) == SQLITE_OK else{ return false }
+        guard sqlite3_open(dbPath + ("/\(dbFileName)", &db) == SQLITE_OK else{ return false }
         return true
     }
     
@@ -353,7 +353,7 @@ class DiskStorage<Value:Codable>{
      获取所有数据key
      @return 如果没有获取到则返回一个空数组
      */
-    func getkeys()->[String]{
+    func getAllkey()->[String]{
         var keys = [String]()
         let sql = "select key from detailed;"
         guard let stmt = dbPrepareStmt(sql: sql) else { return keys }
@@ -538,6 +538,18 @@ class DiskStorage<Value:Codable>{
         let sql = "delete from detailed where key = ?1";
         guard let stmt = dbPrepareStmt(sql: sql) else { return false}
         sqlite3_bind_text(stmt, 1, key.cString(using: .utf8), -1, nil)
+        //step执行
+        guard sqlite3_step(stmt) == SQLITE_DONE else{
+            print("sqlite remove data error \(String(describing: String(validatingUTF8: sqlite3_errmsg(db))))")
+            return false
+        }
+        return true
+    }
+    
+    func removeAllItem()->Bool{
+        //删除sql语句
+        let sql = "delete from detailed";
+        guard let stmt = dbPrepareStmt(sql: sql) else { return false}
         //step执行
         guard sqlite3_step(stmt) == SQLITE_DONE else{
             print("sqlite remove data error \(String(describing: String(validatingUTF8: sqlite3_errmsg(db))))")

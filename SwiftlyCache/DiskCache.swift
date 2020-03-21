@@ -20,6 +20,7 @@ public class DiskCacheGenerator<Value:Codable>:IteratorProtocol{
     var index:Int
     
     public func next() -> Element? {
+        if index == 0{ diskCache.getAllKey() }
         guard index < diskCache.keys.endIndex  else {
             index = diskCache.keys.startIndex
             return nil
@@ -86,7 +87,6 @@ public class DiskCache<Value:Codable>{
     
     public init(path:String) {
         storage = DiskStorage(currentPath: path)
-        keys = storage.getkeys()
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackgroundNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
         recursively()
     }
@@ -231,7 +231,6 @@ extension DiskCache:CacheAware{
         }
         semaphoreSignal.wait()
         let fin = storage.save(forKey: key, value: encodedData,filename: filename)
-        if !keys.contains(key){ keys.append(key) }
         semaphoreSignal.signal()
         return fin
     }
@@ -273,6 +272,10 @@ extension DiskCache:CacheAware{
             if let object = self.object(forKey: key){ completionHandler(key,object) }
             else { completionHandler(key,nil) }
         }
+    }
+    
+    public func getAllKey(){
+        keys = storage.getAllkey()
     }
     
     /**
