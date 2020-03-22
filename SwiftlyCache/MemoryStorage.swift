@@ -16,7 +16,7 @@ class LinkedNode<Value:Codable>:Equatable{
     var object:Value
     var cost:vm_size_t
     weak var prev:LinkedNode?
-    var next:LinkedNode?
+    weak var next:LinkedNode?
     
     init(key:String,object:Value,cost:vm_size_t) {
         self.key = key
@@ -47,8 +47,6 @@ class MemoryStorage<Value:Codable>{
         }else{
             node.next = head
             head?.prev = node
-            head?.next = nil
-            tail = head
             head = node
             
         }
