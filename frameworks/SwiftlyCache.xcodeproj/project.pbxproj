@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E0E74AC24226E9500547166 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0E74A624226E9500547166 /* MemoryStorage.swift */; };
-		6E0E74AD24226E9500547166 /* CacheAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0E74A724226E9500547166 /* CacheAware.swift */; };
-		6E0E74AE24226E9500547166 /* DiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0E74A824226E9500547166 /* DiskStorage.swift */; };
-		6E0E74AF24226E9500547166 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0E74A924226E9500547166 /* MemoryCache.swift */; };
-		6E0E74B024226E9500547166 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0E74AA24226E9500547166 /* DiskCache.swift */; };
-		6E0E74B124226E9500547166 /* MultiCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0E74AB24226E9500547166 /* MultiCache.swift */; };
+		6E18423F2427B4DE00814B97 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1842392427B4DE00814B97 /* MemoryStorage.swift */; };
+		6E1842402427B4DE00814B97 /* CacheAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E18423A2427B4DE00814B97 /* CacheAware.swift */; };
+		6E1842412427B4DE00814B97 /* DiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E18423B2427B4DE00814B97 /* DiskStorage.swift */; };
+		6E1842422427B4DE00814B97 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E18423C2427B4DE00814B97 /* MemoryCache.swift */; };
+		6E1842432427B4DE00814B97 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E18423D2427B4DE00814B97 /* DiskCache.swift */; };
+		6E1842442427B4DE00814B97 /* MultiCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E18423E2427B4DE00814B97 /* MultiCache.swift */; };
 		6E202850242530FD0042081D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E20284F242530FD0042081D /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6E0E749824226DE400547166 /* SwiftlyCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftlyCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E0E74A324226E3800547166 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6E0E74A624226E9500547166 /* MemoryStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryStorage.swift; sourceTree = "<group>"; };
-		6E0E74A724226E9500547166 /* CacheAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheAware.swift; sourceTree = "<group>"; };
-		6E0E74A824226E9500547166 /* DiskStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskStorage.swift; sourceTree = "<group>"; };
-		6E0E74A924226E9500547166 /* MemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
-		6E0E74AA24226E9500547166 /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
-		6E0E74AB24226E9500547166 /* MultiCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCache.swift; sourceTree = "<group>"; };
+		6E1842392427B4DE00814B97 /* MemoryStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryStorage.swift; sourceTree = "<group>"; };
+		6E18423A2427B4DE00814B97 /* CacheAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheAware.swift; sourceTree = "<group>"; };
+		6E18423B2427B4DE00814B97 /* DiskStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskStorage.swift; sourceTree = "<group>"; };
+		6E18423C2427B4DE00814B97 /* MemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
+		6E18423D2427B4DE00814B97 /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
+		6E18423E2427B4DE00814B97 /* MultiCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiCache.swift; sourceTree = "<group>"; };
 		6E20284F242530FD0042081D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
@@ -43,7 +43,7 @@
 		6E0E748E24226DE400547166 = {
 			isa = PBXGroup;
 			children = (
-				6E0E74A524226E9500547166 /* SwiftlyCache */,
+				6E1842382427B4DE00814B97 /* SwiftlyCache */,
 				6E0E74A324226E3800547166 /* Info.plist */,
 				6E0E749924226DE400547166 /* Products */,
 				6E20284E242530FD0042081D /* Frameworks */,
@@ -58,15 +58,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6E0E74A524226E9500547166 /* SwiftlyCache */ = {
+		6E1842382427B4DE00814B97 /* SwiftlyCache */ = {
 			isa = PBXGroup;
 			children = (
-				6E0E74A624226E9500547166 /* MemoryStorage.swift */,
-				6E0E74A724226E9500547166 /* CacheAware.swift */,
-				6E0E74A824226E9500547166 /* DiskStorage.swift */,
-				6E0E74A924226E9500547166 /* MemoryCache.swift */,
-				6E0E74AA24226E9500547166 /* DiskCache.swift */,
-				6E0E74AB24226E9500547166 /* MultiCache.swift */,
+				6E1842392427B4DE00814B97 /* MemoryStorage.swift */,
+				6E18423A2427B4DE00814B97 /* CacheAware.swift */,
+				6E18423B2427B4DE00814B97 /* DiskStorage.swift */,
+				6E18423C2427B4DE00814B97 /* MemoryCache.swift */,
+				6E18423D2427B4DE00814B97 /* DiskCache.swift */,
+				6E18423E2427B4DE00814B97 /* MultiCache.swift */,
 			);
 			name = SwiftlyCache;
 			path = ../SwiftlyCache;
@@ -158,12 +158,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E0E74AC24226E9500547166 /* MemoryStorage.swift in Sources */,
-				6E0E74AF24226E9500547166 /* MemoryCache.swift in Sources */,
-				6E0E74B124226E9500547166 /* MultiCache.swift in Sources */,
-				6E0E74AD24226E9500547166 /* CacheAware.swift in Sources */,
-				6E0E74AE24226E9500547166 /* DiskStorage.swift in Sources */,
-				6E0E74B024226E9500547166 /* DiskCache.swift in Sources */,
+				6E18423F2427B4DE00814B97 /* MemoryStorage.swift in Sources */,
+				6E1842422427B4DE00814B97 /* MemoryCache.swift in Sources */,
+				6E1842442427B4DE00814B97 /* MultiCache.swift in Sources */,
+				6E1842402427B4DE00814B97 /* CacheAware.swift in Sources */,
+				6E1842412427B4DE00814B97 /* DiskStorage.swift in Sources */,
+				6E1842432427B4DE00814B97 /* DiskCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
