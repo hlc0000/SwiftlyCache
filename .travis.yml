@@ -7,4 +7,4 @@ script:
     -scheme SwiftlyCache \		
     -sdk iphonesimulator \			
     -destination 'platform=iOS Simulator,name=iPhone X,OS=latest' \
-    | xcpretty	
+    | xcpretty
