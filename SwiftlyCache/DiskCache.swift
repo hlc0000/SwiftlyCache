@@ -64,7 +64,7 @@ public class DiskCache<Value:Codable>{
     /**
      缓存的过期时间(默认是一周)
      */
-    public var maxCachePeriodInSecond:TimeInterval = 300
+    public var maxCachePeriodInSecond:TimeInterval = 60 * 60 * 24 * 7
     
     fileprivate let storage:DiskStorage<Value>
     
@@ -87,12 +87,7 @@ public class DiskCache<Value:Codable>{
     
     public init(path:String) {
         storage = DiskStorage(currentPath: path)
-        NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackgroundNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
         recursively()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     private func recursively(){
@@ -108,6 +103,7 @@ public class DiskCache<Value:Codable>{
             self.semaphoreSignal.wait()
             self.discardedToCost()
             self.discardedToCount()
+            self.removeExpired()
             self.semaphoreSignal.signal()
         }
     }
@@ -174,11 +170,16 @@ public class DiskCache<Value:Codable>{
      @return 移除成功,返回true,否则返回false
      */
     @discardableResult
-    public func removeExpired()->Bool{
+    func removeExpired()->Bool{
         var currentTime = Date().timeIntervalSince1970
         currentTime -= maxCachePeriodInSecond
-        semaphoreSignal.wait()
         let fin = storage.removeAllExpiredData(time: currentTime)
+        return fin
+    }
+    
+    public func removeAllExpired()->Bool{
+        semaphoreSignal.wait()
+        let fin = removeExpired()
         semaphoreSignal.signal()
         return fin
     }
