@@ -72,11 +72,6 @@ public class DiskCache<Value:Codable>{
     
     private let convertible:ConvertibleFactory = ConvertibleFactory<Value>()
     
-    /**
-     进入后台是否删除所有过期数据，默认为true
-     */
-    public var autoRemoveExpiredObjectWhenEnterBackground = true
-    
     private let dataMaxSize = 20 * 1024
     
     public var autoInterval:TimeInterval = 120
@@ -105,12 +100,6 @@ public class DiskCache<Value:Codable>{
             self.discardedToCount()
             self.removeExpired()
             self.semaphoreSignal.signal()
-        }
-    }
-       
-    @objc fileprivate func didEnterBackgroundNotification(){
-        if self.autoRemoveExpiredObjectWhenEnterBackground{
-            removeExpired()
         }
     }
     
