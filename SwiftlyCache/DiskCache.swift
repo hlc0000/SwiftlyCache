@@ -114,9 +114,7 @@ public class DiskCache<Value:Codable>{
        
     @objc fileprivate func didEnterBackgroundNotification(){
         if self.autoRemoveExpiredObjectWhenEnterBackground{
-            semaphoreSignal.wait()
             removeExpired()
-            semaphoreSignal.signal()
         }
     }
     
