@@ -23,6 +23,7 @@ public class MultiCacheGenerator<Value:Codable>:IteratorProtocol{
     private let diskCacheGenerator: DiskCacheGenerator<Value>
     
     public func next() -> Element? {
+        if diskCacheGenerator.index == 0{ diskCache.getAllKey() }
         guard diskCacheGenerator.index < diskCache.keys.endIndex  else {
             diskCacheGenerator.index = diskCache.keys.startIndex
             return nil

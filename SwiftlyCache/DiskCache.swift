@@ -275,7 +275,9 @@ extension DiskCache:CacheAware{
     }
     
     public func getAllKey(){
+        semaphoreSignal.wait()
         keys = storage.getAllkey()
+        semaphoreSignal.signal()
     }
     
     /**
