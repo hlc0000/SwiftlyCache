@@ -12,7 +12,6 @@ SwiftlyCache是用Swift 5编写的一个线程安全的iOS通用缓存库。
 -  支持所有遵守Codable协议的数据类型
 -  支持LRU淘汰算法
 -  当收到内存警告或者App进入后台时,内存缓存可以配置为自动清空或者手动清空
--  当App进入后台时,磁盘缓存可以配置为自动移除过期数据或者手动移除过期数据
 -  支持使用Subscript，使读写数据更加方便
 -  提供了MultiCacheGennerator、MemoryCacheGenerator、DiskCacheGenerator用于支持for..in、
   compactMap、map、filter等方法
