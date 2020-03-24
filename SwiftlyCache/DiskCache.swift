@@ -117,9 +117,9 @@ public class DiskCache<Value:Codable>{
                 if totalCount > maxCountLimit{
                     if let filename = item?.filename{
                         if storage.removeFile(filename: filename){
-                            if let key = item?.key{ fin = storage.removeItem(key: key) }
+                            if let key = item?.key{ fin = storage.dbRemoveItem(key: key) }
                         }
-                    }else if let key = item?.key{ fin = storage.removeItem(key: key )}
+                    }else if let key = item?.key{ fin = storage.dbRemoveItem(key: key )}
                     if fin{ totalCount -= 1 }
                     else { break }
                 }else{ break }
@@ -143,9 +143,9 @@ public class DiskCache<Value:Codable>{
                 if totalCost > maxSize{
                     if let filename = item?.filename{
                         if storage.removeFile(filename: filename){
-                            if let key = item?.key{ fin = storage.removeItem(key: key) }
+                            if let key = item?.key{ fin = storage.dbRemoveItem(key: key) }
                         }
-                    }else if let key = item?.key{ fin = storage.removeItem(key: key) }
+                    }else if let key = item?.key{ fin = storage.dbRemoveItem(key: key) }
                     if fin{ totalCost -= item!.size }
                     else { break }
                 }else{ break }
@@ -162,7 +162,7 @@ public class DiskCache<Value:Codable>{
     private func removeExpired()->Bool{
         var currentTime = Date().timeIntervalSince1970
         currentTime -= maxCachePeriodInSecond
-        let fin = storage.removeAllExpiredData(time: currentTime)
+        let fin = storage.dbRemoveAllExpiredData(time: currentTime)
         return fin
     }
     
@@ -245,7 +245,7 @@ extension DiskCache:CacheAware{
     */
     public func object(forKey key: String) -> Value? {
         semaphoreSignal.wait()
-        let item = storage.getItemForKey(forKey: key)
+        let item = storage.dbGetItemForKey(forKey: key)
         semaphoreSignal.signal()
         guard let value = item?.data else{ return nil }
         return try? convertible.fromData(data: value)
@@ -265,7 +265,7 @@ extension DiskCache:CacheAware{
     
     func getAllKey(){
         semaphoreSignal.wait()
-        keys = storage.getAllkey()
+        keys = storage.dbGetAllkey()
         semaphoreSignal.signal()
     }
     
@@ -319,7 +319,7 @@ extension DiskCache:CacheAware{
     */
     public func isExistsObjectForKey(forKey key: String) -> Bool {
         semaphoreSignal.wait()
-        let exists = self.storage.isExistsForKey(forKey: key)
+        let exists = self.storage.dbIsExistsForKey(forKey: key)
         semaphoreSignal.signal()
         return exists
     }

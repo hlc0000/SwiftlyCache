@@ -126,10 +126,10 @@ class DiskStorage<Value:Codable>{
      */
     @discardableResult
     func removeObject(key:String)->Bool{
-        if let filename = self.getFilename(key: key){
+        if let filename = self.dbGetFilename(key: key){
             removeFile(filename: filename)
         }
-        return  self.removeItem(key: key)
+        return  self.dbRemoveItem(key: key)
     }
     
     /**
@@ -148,7 +148,7 @@ class DiskStorage<Value:Codable>{
      移除全部文件数据
      */
     func removeAll(){
-        if !removeAllItem(){ return }
+        if !dbRemoveAllItem(){ return }
         if dbStmtCache.count > 0{ dbStmtCache.removeAll(keepingCapacity: true) }
         if !dbClose() { return }
         if ((try? fileManager.removeItem(atPath: self.filePath)) == nil) { return }
@@ -221,13 +221,13 @@ class DiskStorage<Value:Codable>{
      */
     func dbCreateTable() -> Bool{
         let sql = "pragma journal_mode = wal; pragma synchronous = normal; create table if not exists detailed (key text primary key,filename text,inline_data blob,size integer,last_access_time integer); create index if not exists last_access_time_idx on detailed(last_access_time);"
-        guard excuSql(sql: sql) else{ return false }
+        guard dbExcuSql(sql: sql) else{ return false }
         return true
     }
     
     
     @discardableResult
-    func excuSql(sql:String) -> Bool{
+    func dbExcuSql(sql:String) -> Bool{
         guard sqlite3_exec(db,sql.cString(using: .utf8),nil,nil,nil) == SQLITE_OK else{
             print("sqlite exec error \(String(describing: String(validatingUTF8: sqlite3_errmsg(db))))")
             return false
@@ -246,15 +246,15 @@ class DiskStorage<Value:Codable>{
     func save(forKey key:String,value:Data,filename:String?)->Bool{
         if filename != nil{
             guard createFile(filename: filename, data: value) else{ return false }
-            guard dbsave(forKey: key, value: value, filename: filename) else { removeFile(filename: filename!); return false }
+            guard dbSave(forKey: key, value: value, filename: filename) else { removeFile(filename: filename!); return false }
             return true
         }
-        if let currentFilename = getFilename(key: key){ removeFile(filename: currentFilename) }
-        guard dbsave(forKey: key, value: value, filename: filename) else { return false }
+        if let currentFilename = dbGetFilename(key: key){ removeFile(filename: currentFilename) }
+        guard dbSave(forKey: key, value: value, filename: filename) else { return false }
         return true
     }
     
-    func dbsave(forKey key:String,value:Data,filename:String?)->Bool{
+    func dbSave(forKey key:String,value:Data,filename:String?)->Bool{
             let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
             let sql = "insert or replace into detailed" + "(key,filename,inline_data,size,last_access_time)" + "values(?1,?2,?3,?4,?5);"
             guard let stmt = dbPrepareStmt(sql: sql) else{ return false }
@@ -298,9 +298,9 @@ class DiskStorage<Value:Codable>{
      根据指定key获取对应的数据并更新最后访问时间
      @return 获取到对应的数据后则使用DiskStorageItem进行封装后返回
      */
-    func getItemForKey(forKey key:String)->DiskStorageItem?{
-        guard let item = query(forKey: key) else{ return nil }
-        updataLastAccessTime(key: key)
+    func dbGetItemForKey(forKey key:String)->DiskStorageItem?{
+        guard let item = dbQuery(forKey: key) else{ return nil }
+        dbUpdataLastAccessTime(key: key)
         if let filename = item.filename{
             item.data = readData(filename: filename) }
         return item
@@ -331,7 +331,7 @@ class DiskStorage<Value:Codable>{
      根据指定key查询对应数据
      @return 如果没有找到对应的数据,则返回nil
      */
-    func query(forKey key:String) -> DiskStorageItem?{
+    func dbQuery(forKey key:String) -> DiskStorageItem?{
         let sql = "select key,filename,inline_data,size,last_access_time from detailed where key=?1;"
         guard let stmt = dbPrepareStmt(sql: sql) else { return nil }
 
@@ -353,7 +353,7 @@ class DiskStorage<Value:Codable>{
      获取所有数据key
      @return 如果没有获取到则返回一个空数组
      */
-    func getAllkey()->[String]{
+    func dbGetAllkey()->[String]{
         var keys = [String]()
         let sql = "select key from detailed;"
         guard let stmt = dbPrepareStmt(sql: sql) else { return keys }
@@ -376,7 +376,7 @@ class DiskStorage<Value:Codable>{
      根据key获取数据的文件名
      @return 如果没有找到指定文件名，则返回nil
      */
-    func getFilename(key:String)->String?{
+    func dbGetFilename(key:String)->String?{
         let sql = "select filename from detailed where key = ?1;"
         guard let stmt = dbPrepareStmt(sql: sql) else { return nil }
         sqlite3_bind_text(stmt, 1, key.cString(using: .utf8), -1, nil)
@@ -391,10 +391,10 @@ class DiskStorage<Value:Codable>{
      移除所有过期数据
      @return 移除成功返回true,否则返回false
      */
-    func removeAllExpiredData(time:TimeInterval)->Bool{
-        let filenames = getExpiredFiles(time: time)
+    func dbRemoveAllExpiredData(time:TimeInterval)->Bool{
+        let filenames = dbGetExpiredFiles(time: time)
         for filename in filenames { removeFile(filename:filename) }
-        if removeExpired(time: time){ dbCheckpoint();return true }
+        if dbRemoveExpired(time: time){ dbCheckpoint();return true }
         return false
     }
     
@@ -409,7 +409,7 @@ class DiskStorage<Value:Codable>{
      获取过期文件名
      @return 如果没有获取到不为nil的文件名，则返回一个空的数组
      */
-    func getExpiredFiles(time:TimeInterval)->[String]{
+    func dbGetExpiredFiles(time:TimeInterval)->[String]{
         var filenames = [String]()
         let sql = "select filename from detailed where last_access_time < ?1 and filename is not null;"
         guard let stmt = dbPrepareStmt(sql: sql) else { return filenames }
@@ -431,7 +431,7 @@ class DiskStorage<Value:Codable>{
      移除数据库中过期的数据
      @return 移除成功返回true,否则返回false
      */
-    func removeExpired(time:TimeInterval)->Bool{
+    func dbRemoveExpired(time:TimeInterval)->Bool{
         let sql = "delete from detailed where last_access_time < ?1;"
         guard let stmt = dbPrepareStmt(sql: sql) else { return false }
         sqlite3_bind_int(stmt, 1, Int32(time))
@@ -481,7 +481,7 @@ class DiskStorage<Value:Codable>{
     @param key: value关联的键
     @return 查询成功返回true,否则返回false
      */
-    func isExistsForKey(forKey key:String) -> Bool{
+    func dbIsExistsForKey(forKey key:String) -> Bool{
         let sql = "select count(key) from detailed where key = ?1"
         guard let stmt = dbPrepareStmt(sql: sql) else { return false }
         sqlite3_bind_text(stmt, 1, key.cString(using: .utf8), -1, nil)
@@ -518,7 +518,7 @@ class DiskStorage<Value:Codable>{
     /**
      根据key更新最后访问时间
      */
-    func updataLastAccessTime(key:String){
+    func dbUpdataLastAccessTime(key:String){
         let sql = "update detailed set last_access_time=?1 where key=?2;"
         guard let stmt = dbPrepareStmt(sql: sql) else { return }
         sqlite3_bind_int(stmt, 1, Int32(Date().timeStamp))
@@ -533,7 +533,7 @@ class DiskStorage<Value:Codable>{
      移除key指定数据
      @return 成功返回true，否则返回false
      */
-    func removeItem(key:String)->Bool{
+    func dbRemoveItem(key:String)->Bool{
         //删除sql语句
         let sql = "delete from detailed where key = ?1";
         guard let stmt = dbPrepareStmt(sql: sql) else { return false}
@@ -546,7 +546,7 @@ class DiskStorage<Value:Codable>{
         return true
     }
     
-    func removeAllItem()->Bool{
+    func dbRemoveAllItem()->Bool{
         //删除sql语句
         let sql = "delete from detailed";
         guard let stmt = dbPrepareStmt(sql: sql) else { return false}
