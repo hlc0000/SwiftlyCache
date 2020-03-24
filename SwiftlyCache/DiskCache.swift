@@ -159,13 +159,14 @@ public class DiskCache<Value:Codable>{
      @return 移除成功,返回true,否则返回false
      */
     @discardableResult
-    func removeExpired()->Bool{
+    private func removeExpired()->Bool{
         var currentTime = Date().timeIntervalSince1970
         currentTime -= maxCachePeriodInSecond
         let fin = storage.removeAllExpiredData(time: currentTime)
         return fin
     }
     
+    @discardableResult
     public func removeAllExpired()->Bool{
         semaphoreSignal.wait()
         let fin = removeExpired()
@@ -262,7 +263,7 @@ extension DiskCache:CacheAware{
         }
     }
     
-    public func getAllKey(){
+    func getAllKey(){
         semaphoreSignal.wait()
         keys = storage.getAllkey()
         semaphoreSignal.signal()
