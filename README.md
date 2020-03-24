@@ -27,7 +27,7 @@ SwiftlyCache是用Swift 5编写的一个线程安全的iOS通用缓存库。
   手动导入:
   ------------------------------
   1.下载SwiftlyCache文件夹内所有内容  
-  2.将SwiftCache内的源文件添加到你的工程  
+  2.将SwiftlyCache内的源文件添加到你的工程  
   
   
 更多测试代码和用例见 SwiflyCacheDemo
