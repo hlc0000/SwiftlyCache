@@ -4,6 +4,82 @@
 ![](https://img.shields.io/cocoapods/p/SwiftlyCache.svg?style=flat)
 ![](https://img.shields.io/cocoapods/v/SwiftlyCache.svg?style=flat)
 
+`Swiftlycache is a thread safe IOS general cache library written with 'swift 5'.
+
+Features
+===============
+
+- Support all data types complying with the `codable` protocol
+- Objects can be evicted with least-recently-used algorithm
+- It can be configured to automatically recycle objects or manually recycle objects when receiving memory warnings or when the application enters the background
+- Using subscript can make reading and writing data more convenient
+- Support reading data using sequence generator
+
+Installation
+==============
+CocoaPods
+-------------------------------
+1.Add `pod 'SwiftlyCache'` to your Podfile  
+2. Run `pod install` or `pod update`  
+3.import `SwiftlyCache`
+
+Manually
+-------------------------------
+Download all the files in the SwiftlyCache subdirectory
+2. Add the source files to your Xcode project  
+
+Example:
+-------------------------------
+Cache a struct complying with the  `codable` protocol
+
+```
+struct Student:Codable {
+     var name:String
+     var age:Int
+     
+     init(name:String,age:Int) {
+         self.name = name
+         self.age = age
+     }
+ }
+ ```
+ ```
+ let cache = MultiCache<Student>()
+ 
+ let shirley = Student(name: "shirley", age: 30)
+ 
+```
+ 
+Set `key` and `value` to be cached
+ 
+ ```
+ cache.set(forKey: "shirley10", value: shirley)
+ 
+``` 
+
+Query the corresponding value according to the given `key`
+
+```
+if let object = cache.object(forKey: "shirley1"){
+    print("当前Student是:\(object)")
+}
+```
+
+Query whether the corresponding `value` exists in the cache according to `key`
+
+```
+
+let isExists = cache.isExistsObjectForKey(forKey: "shirley20")
+
+```
+See `swiftlycachedemo` for more test code and cases
+
+<br/><br/>
+---
+
+中文介绍
+============================
+
  `SwiftlyCache`是用 `Swift 5`编写的一个线程安全的iOS通用缓存库。
 
 特性:
