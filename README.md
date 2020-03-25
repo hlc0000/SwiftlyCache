@@ -4,7 +4,7 @@
 ![](https://img.shields.io/cocoapods/p/SwiftlyCache.svg?style=flat)
 ![](https://img.shields.io/cocoapods/v/SwiftlyCache.svg?style=flat)
 
- `SwiftlyCache`是用Swift 5编写的一个线程安全的iOS通用缓存库。
+ `SwiftlyCache`是用 `Swift 5`编写的一个线程安全的iOS通用缓存库。
 
 特性:
 ==============
