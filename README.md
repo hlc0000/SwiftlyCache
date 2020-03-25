@@ -4,17 +4,17 @@
 ![](https://img.shields.io/cocoapods/p/SwiftlyCache.svg?style=flat)
 ![](https://img.shields.io/cocoapods/v/SwiftlyCache.svg?style=flat)
 
-SwiftlyCache是用Swift 5编写的一个线程安全的iOS通用缓存库。
+ `SwiftlyCache`是用Swift 5编写的一个线程安全的iOS通用缓存库。
 
 特性:
 ==============
 
--  支持所有遵守Codable协议的数据类型
+-  支持所有遵守 `Codable`协议的数据类型
 -  支持LRU淘汰算法
 -  当收到内存警告或者App进入后台时,内存缓存可以配置为自动清空或者手动清空
--  支持使用Subscript，使读写数据更加方便
--  提供了MultiCacheGennerator、MemoryCacheGenerator、DiskCacheGenerator用于支持for..in、
-  compactMap、map、filter等方法
+-  支持使用 `Subscript`，使读写数据更加方便
+-  提供了 `MultiCacheGennerator、` `MemoryCacheGenerator、` `DiskCacheGenerator`用于支持 `for..in、`
+   `compactMap、` `map、` `filter`等方法
   
   使用方法:
   =============
