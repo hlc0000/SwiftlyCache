@@ -29,7 +29,48 @@
   1.下载 `SwiftlyCache`文件夹内所有内容  
   2.将 `SwiftlyCache`内的源文件添加到你的工程  
   
+  示例:
+  ------------------------------
+  将一个遵守`Codable`协议的struct进行缓存
   
+ ```struct Student:Codable {
+      var name:String
+      var age:Int
+      
+      init(name:String,age:Int) {
+          self.name = name
+          self.age = age
+      }
+  }
+  ```
+  ```
+  let cache = MultiCache<Student>()
+  
+ ```
+  
+  设置需要缓存的`Key`和`Value`
+  
+  ```
+  cache.set(forKey: "shirley10", value: shirley)
+  
+ ``` 
+ 
+ 根据给定的`Key`查询对应的Value
+ 
+ ```
+ if let object = cache.object(forKey: "shirley1"){
+     print("当前Student是:\(object)")
+ }
+ ```
+ 
+ 根据`Key`查询缓存中是否存在对应的`Value`
+ 
+ ```
+ 
+ let isExists = cache.isExistsObjectForKey(forKey: "shirley20")
+ 
+ ```
+ 
 更多测试代码和用例见  `SwiftlyCacheDemo`
 
 相关链接:
