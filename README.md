@@ -20,13 +20,13 @@ Installation
 CocoaPods
 -------------------------------
 1.Add `pod 'SwiftlyCache'` to your Podfile  
-2. Run `pod install` or `pod update`  
+2.Run `pod install` or `pod update`  
 3.import `SwiftlyCache`
 
 Manually
 -------------------------------
-Download all the files in the SwiftlyCache subdirectory
-2. Add the source files to your Xcode project  
+1.Download all the files in the SwiftlyCache subdirectory  
+2.Add the source files to your Xcode project  
 
 Example:
 -------------------------------
