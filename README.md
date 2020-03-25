@@ -4,7 +4,7 @@
 ![](https://img.shields.io/cocoapods/p/SwiftlyCache.svg?style=flat)
 ![](https://img.shields.io/cocoapods/v/SwiftlyCache.svg?style=flat)
 
-`Swiftlycache is a thread safe IOS general cache library written with 'swift 5'.
+`Swiftlycache` is a thread safe IOS general cache library written with `swift 5`.
 
 Features
 ===============
@@ -25,7 +25,7 @@ CocoaPods
 
 Manually
 -------------------------------
-1.Download all the files in the SwiftlyCache subdirectory  
+1.Download all the files in the `SwiftlyCache` subdirectory  
 2.Add the source files to your Xcode project  
 
 Example:
