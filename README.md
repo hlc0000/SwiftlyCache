@@ -47,6 +47,8 @@
   ```
   let cache = MultiCache<Student>()
   
+  let shirley = Student(name: "shirley", age: 30)
+  
  ```
   
   设置需要缓存的`Key`和`Value`
