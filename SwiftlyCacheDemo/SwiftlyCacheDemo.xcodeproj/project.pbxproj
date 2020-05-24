@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -80,7 +80,6 @@
 				FCE7DB6A66445FF889B2E8DD /* Pods-SwiftlyCacheDemo.debug.xcconfig */,
 				F9E48B9E18C953F937FB459A /* Pods-SwiftlyCacheDemo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
