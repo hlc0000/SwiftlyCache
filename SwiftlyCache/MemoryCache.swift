@@ -52,18 +52,19 @@ public class MemoryCache<Value:Codable>{
     
     fileprivate let storage:MemoryStorage = MemoryStorage<Value>()
     
-    private var mutex:pthread_mutex_t = pthread_mutex_t()
+//    private var mutex:pthread_mutex_t = pthread_mutex_t()
+    private let semaphoreSignal = DispatchSemaphore(value: 1)
     
     private let queue: DispatchQueue = DispatchQueue(label: cacheIdentifier, attributes: DispatchQueue.Attributes.concurrent)
     
     public init() {
-        pthread_mutex_init(&mutex, nil)
+//        pthread_mutex_init(&mutex, nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMemoryWarningNotification), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackgroundNotification), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     deinit {
-        pthread_mutex_destroy(&mutex)
+//        pthread_mutex_destroy(&mutex)
         NotificationCenter.default.removeObserver(self, name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
@@ -122,10 +123,12 @@ extension MemoryCache:Sequence{
     返回该序列元素迭代器
     */
     public func makeIterator() -> MemoryCacheGenerator<Value> {
-        pthread_mutex_lock(&mutex)
+//        pthread_mutex_lock(&mutex)
+        semaphoreSignal.wait()
         self.storage.setCurrentNode()
         let generator = MemoryCacheGenerator(memoryCache: self)
-        pthread_mutex_unlock(&mutex)
+//        pthread_mutex_unlock(&mutex)
+        semaphoreSignal.signal()
         return generator
     }
 }
@@ -142,7 +145,8 @@ extension MemoryCache:CacheAware{
     @discardableResult
     public func set(forKey key: String, value: Value?, cost: vm_size_t = 0) ->Bool{
         guard let object = value else { return false }
-        pthread_mutex_lock(&mutex)
+//        pthread_mutex_lock(&mutex)
+        semaphoreSignal.wait()
         if let node:LinkedNode = storage.dic[key]{
             node.object = object
             node.cost = cost
@@ -155,7 +159,8 @@ extension MemoryCache:CacheAware{
         }
         discardedToCount()
         discardedToCost()
-        pthread_mutex_unlock(&mutex)
+//        pthread_mutex_unlock(&mutex)
+        semaphoreSignal.signal()
         return true
     }
     
@@ -179,14 +184,17 @@ extension MemoryCache:CacheAware{
     @return 返回与key关联的value，如果没有与key对应的value，返回nil
     */
     public func object(forKey key: String) -> Value? {
-        pthread_mutex_lock(&mutex)
+//        pthread_mutex_lock(&mutex)
+        semaphoreSignal.wait()
         guard let node = storage.dic[key] else {
-            pthread_mutex_unlock(&mutex)
+//            pthread_mutex_unlock(&mutex)
+            semaphoreSignal.signal()
             return nil
         }
         //移动到链表头
         storage.moveNode(node: node)
-        pthread_mutex_unlock(&mutex)
+//        pthread_mutex_unlock(&mutex)
+        semaphoreSignal.signal()
         return node.object
     }
     
@@ -207,9 +215,11 @@ extension MemoryCache:CacheAware{
     @return 如果缓存中存在与key对应的value，返回true,否则返回false
     */
     public func isExistsObjectForKey(forKey key: String) -> Bool {
-        pthread_mutex_lock(&mutex)
+//        pthread_mutex_lock(&mutex)
+        semaphoreSignal.wait()
         let exists = storage.dic.keys.contains(key)
-        pthread_mutex_unlock(&mutex)
+//        pthread_mutex_unlock(&mutex)
+        semaphoreSignal.signal()
         return exists
     }
     
@@ -229,9 +239,11 @@ extension MemoryCache:CacheAware{
     */
     public func removeAll(){
         if storage.dic.isEmpty{ return }
-        pthread_mutex_lock(&mutex)
+//        pthread_mutex_lock(&mutex)
+        semaphoreSignal.wait()
         storage.removeAllObject()
-        pthread_mutex_unlock(&mutex)
+//        pthread_mutex_unlock(&mutex)
+        semaphoreSignal.signal()
     }
     
     /**
@@ -250,11 +262,13 @@ extension MemoryCache:CacheAware{
      key:通过key删除对应的value
      */
     public func removeObject(forKey key:String){
-        pthread_mutex_lock(&mutex)
+//        pthread_mutex_lock(&mutex)
+        semaphoreSignal.wait()
         if let node:LinkedNode = storage.dic[key]{
             storage.removeObject(node: node)
         }
-        pthread_mutex_unlock(&mutex)
+//        pthread_mutex_unlock(&mutex)
+        semaphoreSignal.signal()
     }
     
     /**
