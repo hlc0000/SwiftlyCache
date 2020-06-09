@@ -204,7 +204,7 @@ extension MemoryCache:CacheAware{
     根据key查询缓存中是否存在对应的value
     @return 如果缓存中存在与key对应的value，返回true,否则返回false
     */
-    public func isExistsObjectForKey(forKey key: String) -> Bool {
+    public func isExistsObject(forKey key: String) -> Bool {
         semaphoreSignal.wait()
         let exists = storage.dic.keys.contains(key)
         semaphoreSignal.signal()
@@ -215,9 +215,9 @@ extension MemoryCache:CacheAware{
     根据key查询缓存中是否存在对应的value
     @param completionHandler: 查询完成后回调
     */
-    public func isExistsObjectForKey(forKey key:String,completionHandler:@escaping((_ key:String,_ contain:Bool) -> Void)) {
+    public func isExistsObject(forKey key:String,completionHandler:@escaping((_ key:String,_ contain:Bool) -> Void)) {
         queue.async {
-            let exists = self.isExistsObjectForKey(forKey: key)
+            let exists = self.isExistsObject(forKey: key)
             completionHandler(key,exists)
         }
     }
