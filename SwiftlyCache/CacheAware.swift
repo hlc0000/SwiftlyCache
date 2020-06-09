@@ -17,8 +17,8 @@ protocol CacheAware {
     func object(forKey key:String)->Value?
     func object(forKey key:String,completionHandler:@escaping((_ key:String,_ value:Value?) -> Void))
     
-    func isExistsObjectForKey(forKey key:String)->Bool
-    func isExistsObjectForKey(forKey key:String,completionHandler:@escaping((_ key:String,_ contain:Bool) -> Void))
+    func isExistsObject(forKey key:String)->Bool
+    func isExistsObject(forKey key:String,completionHandler:@escaping((_ key:String,_ contain:Bool) -> Void))
     
     func removeAll()
     func removeAll(completionHandler:@escaping(() -> Void))
